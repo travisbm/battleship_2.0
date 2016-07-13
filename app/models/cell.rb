@@ -1,9 +1,8 @@
-class Cell
-  attr_accessor :status
+class Cell < ActiveRecord::Base
+  belongs_to    :game
+  before_create :init
 
-  def initialize(row, column, status = Game::OPEN)
-    @row    = row
-    @column = column
-    @status = status
+  def init
+    self.status ||= Game::OPEN
   end
 end
