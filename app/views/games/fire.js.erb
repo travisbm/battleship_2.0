@@ -1,0 +1,7 @@
+$(".score").html("Shots: <%= @game.shots %> Score: <%= @game.score %>");
+
+<% if @cell[:status] == "hit" %>
+  $(".cell_<%= @row %>_<%= @col %>").css("background", "red")
+<% elsif @cell[:status] == "miss" %>
+  $(".cell_<%= @row %>_<%= @col %>").css("background", "grey")
+<% end %>

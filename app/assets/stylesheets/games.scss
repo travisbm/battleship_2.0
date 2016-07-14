@@ -1,0 +1,35 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+h1 {
+ text-align: center;
+ font-size: 50px;
+}
+
+.start_link {
+  text-align: center;
+  a {
+    width: 200px;
+  }
+}
+
+.col-md-1-2{
+  @include make-md-column(1.2)
+}
+
+.container {
+  text-align: center;
+}
+
+#cell {
+  float: left;
+  position: relative;
+  width: 10%;
+  padding-top: 10%;
+  background: blue;
+  border: 1px solid white
+}
+
+.game_board {
+  margin-bottom: 100px;
+}

@@ -1,0 +1,27 @@
+<div class="show container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1>
+        <%= "Battleship Game: #{@game.id}" %>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <h3 class="score">
+      <%= "Shots: #{@game.shots} Score: #{@game.score}" %>
+    </h3>
+  </div>
+  <div class="row game_board">
+    <div class="col-md-6 col-md-offset-3">
+      <% @game.game_board.each_with_index do |row, row_i| %>
+        <div class="row">
+          <% row.each_with_index do |cell, cell_i| %>
+            <%= link_to fire_game_path(row: row_i, col: cell_i), method: :put, remote: true do %>
+              <div class="cell_<%= row_i %>_<%= cell_i %>" id="cell"></div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
