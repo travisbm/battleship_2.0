@@ -12,12 +12,19 @@
     </h3>
   </div>
   <div class="row game_board">
-    <div class="col-md-6 col-md-offset-3">
-      <% @game.game_board.each_with_index do |row, row_i| %>
+
+    <div class="col-md-3">
+      <h3 class="boats"><%= "Boats: #{@game.boats}" %></h3>
+      <h3 class="vessels"><%= "Vessels: #{@game.vessels}" %></h3>
+      <h3 class="carriers"><%= "Carriers: #{@game.carriers}" %></h3>
+    </div>
+
+    <div class="col-md-6">
+      <% @game.game_board.each do |row| %>
         <div class="row">
-          <% row.each_with_index do |cell, cell_i| %>
-            <%= link_to fire_game_path(row: row_i, col: cell_i), method: :put, remote: true do %>
-              <div class="cell_<%= row_i %>_<%= cell_i %>" id="cell"></div>
+          <% row.each do |cell| %>
+            <%= link_to fire_game_path(row: cell[:row], col: cell[:column]), method: :put, remote: true do %>
+              <div class="cell_<%= cell[:row] %>_<%= cell[:column] %>" id="cell"></div>
             <% end %>
           <% end %>
         </div>

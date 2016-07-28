@@ -1,4 +1,7 @@
 $(".score").html("Shots: <%= @game.shots %> Score: <%= @game.score %>");
+$(".boats").html("Boats: <%= @game.boats %>");
+$(".vessels").html("Vessels: <%= @game.vessels %>");
+$(".carriers").html("Carriers: <%= @game.carriers %>");
 
 <% if @cell[:status] == "hit" %>
   $(".cell_<%= @row %>_<%= @col %>").css("background", "red")

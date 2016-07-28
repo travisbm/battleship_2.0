@@ -13,14 +13,15 @@ class Game < ActiveRecord::Base
   VESSEL     = Vessel.new
   CARRIER    = Carrier.new
   SHIP_ARRAY = [BOAT, VESSEL, CARRIER]
+  SHIP_COUNT = []
 
   def fire!(row, col)
     cell = get_cell(row, col)
 
     case cell[:status]
-    when OPEN                           then update_game_when_miss(cell)
-    when *["boat", "vessel", "carrier"] then update_game_when_hit(cell)
-    else                                raise "Invalid Cell status..."
+    when OPEN   then update_game_when_miss(cell)
+    when "ship" then update_game_when_hit(cell)
+    else        raise "Invalid Cell status..."
     end
 
     set_final_score if game_over?
@@ -32,7 +33,25 @@ class Game < ActiveRecord::Base
 
   private
 
+  def update_ship_count
+    self.update(boats:    ship_count("boat"))
+    self.update(vessels:  ship_count("vessel"))
+    self.update(carriers: ship_count("carrier"))
+  end
+
+  def ship_count(type)
+    SHIP_COUNT.count do |arr|
+      arr.any? do |hash|
+        cell = get_cell(hash[:row], hash[:column])
+        cell[:type] == type && cell[:status] == "ship"
+      end
+    end
+  end
+
   def init
+    self.boats    ||= 5
+    self.vessels  ||= 3
+    self.carriers ||= 2
     self.score    ||= 0
     self.shots    ||= NUM_SHOTS
     self.game_board = init_game_board
@@ -45,8 +64,7 @@ class Game < ActiveRecord::Base
 
   def no_playable_cells?
     self.game_board.flatten.none? do |cell|
-      s = cell[:status]
-      s == "boat" || s == "vessel" || s == "carrier"
+      cell[:status] == "ship"
     end
   end
 
@@ -62,6 +80,7 @@ class Game < ActiveRecord::Base
   def update_game_when_hit(cell)
     cell[:status] = HIT
     self.update(score: (self.score + SCORE_HIT))
+    update_ship_count
   end
 
   def available_ship_positions(array, ship_size)
@@ -75,7 +94,11 @@ class Game < ActiveRecord::Base
 
   def place_ship(array, ship_type)
     ship_array = array.sample
-    ship_array.each { |cell| cell[:status] = ship_type }
+    SHIP_COUNT << ship_array
+    ship_array.each do |cell|
+      cell[:status] = "ship"
+      cell[:type]   = ship_type
+    end
   end
 
   def set_game_board
@@ -85,6 +108,6 @@ class Game < ActiveRecord::Base
   end
 
   def init_game_board
-    Array.new(ARRAY_SIZE) { |row| Array.new(ARRAY_SIZE) { |column| { status: OPEN } } }
+    Array.new(ARRAY_SIZE) { |row| Array.new(ARRAY_SIZE) { |column| { status: OPEN, row: row, column: column, type: ''} } }
   end
 end

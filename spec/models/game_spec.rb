@@ -19,7 +19,7 @@ RSpec.describe Game, type: :model do
 
     it "sets 5 boats on game board" do
       boats = game_board.select do |cell|
-        cell[:status] == "boat"
+        cell[:type] == "boat"
       end
 
       expect(boats.count).to eq(Boat::COUNT * Boat::SIZE)
@@ -27,7 +27,7 @@ RSpec.describe Game, type: :model do
 
     it "sets 3 vessels on game board" do
       vessels = game_board.select do |cell|
-        cell[:status] == "vessel"
+        cell[:type] == "vessel"
       end
 
       expect(vessels.count).to eq(Vessel::COUNT * Vessel::SIZE)
@@ -35,7 +35,7 @@ RSpec.describe Game, type: :model do
 
     it "sets 2 aircraft carriers on game board" do
       carriers = game_board.select do |cell|
-        cell[:status] == "carrier"
+        cell[:type] == "carrier"
       end
 
       expect(carriers.count).to eq(Carrier::COUNT * Carrier::SIZE)
@@ -65,9 +65,9 @@ RSpec.describe Game, type: :model do
 
     context "cell is occupied" do
 
-      context "cell is occupide by a BOAT" do
+      context "cell is occupide by a ship" do
         before do
-          cell[:status] = "boat"
+          cell[:status] = "ship"
         end
 
         it "should increment score by 500 when shot is a HIT" do
@@ -75,18 +75,8 @@ RSpec.describe Game, type: :model do
         end
 
         it "should change change BOAT cell status to HIT" do
-          expect{ game.fire!(0, 0) }.to change{ cell[:status] }.from("boat").to(Game::HIT)
+          expect{ game.fire!(0, 0) }.to change{ cell[:status] }.from("ship").to(Game::HIT)
         end
-      end
-
-      it "should change change VESSEL cell status to HIT" do
-        cell[:status] = "vessel"
-        expect{ game.fire!(0, 0) }.to change{ cell[:status] }.from("vessel").to(Game::HIT)
-      end
-
-      it "should change change CARRIER cell status to HIT" do
-        cell[:status] = "carrier"
-        expect{ game.fire!(0, 0) }.to change{ cell[:status] }.from("carrier").to(Game::HIT)
       end
     end
 
