@@ -1,22 +1,31 @@
 <div class="show container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h1>
-        <%= "Battleship Game: #{@game.id}" %>
-      </h1>
+      <h3 class="shots">
+        <%= "Shots: #{@game.shots}" %>
+      </h3>
+      <h3 class="score">
+        <%= "Score: #{@game.score}" %>
     </div>
   </div>
-  <div class="row">
-    <h3 class="score">
-      <%= "Shots: #{@game.shots} Score: #{@game.score}" %>
-    </h3>
-  </div>
-  <div class="row game_board">
 
+  <div class="row game_board">
     <div class="col-md-3">
-      <h3 class="boats"><%= "Boats: #{@game.boats}" %></h3>
-      <h3 class="vessels"><%= "Vessels: #{@game.vessels}" %></h3>
-      <h3 class="carriers"><%= "Carriers: #{@game.carriers}" %></h3>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <span class="badge boats"><%= @game.boats %></span>
+          Boats:
+        </li>
+        <li class="list-group-item">
+          <span class="badge vessels"><%= @game.vessels %></span>
+          Vessels:
+        </li>
+        <li class="list-group-item">
+          <span class="badge carriers"><%= @game.carriers %></span>
+          Carriers:
+        </li>
+      </ul>
+      <p><%= link_to "New Game", games_path, method: :post, class: 'new_game' 'btn btn-primary btn-lg' %></p>
     </div>
 
     <div class="col-md-6">

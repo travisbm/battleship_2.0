@@ -1,7 +1,8 @@
-$(".score").html("Shots: <%= @game.shots %> Score: <%= @game.score %>");
-$(".boats").html("Boats: <%= @game.boats %>");
-$(".vessels").html("Vessels: <%= @game.vessels %>");
-$(".carriers").html("Carriers: <%= @game.carriers %>");
+$(".shots").html("Shots: <%= @game.shots %>");
+$(".score").html("Score: <%= @game.score %>");
+$(".boats").html("<%= @game.boats %>");
+$(".vessels").html("<%= @game.vessels %>");
+$(".carriers").html("<%= @game.carriers %>");
 
 <% if @cell[:status] == "hit" %>
   $(".cell_<%= @row %>_<%= @col %>").css("background", "red")

@@ -1,5 +1,6 @@
 class Game < ActiveRecord::Base
   serialize     :game_board, Array
+  serialize     :ship_count, Array
   before_create :init
 
   ARRAY_SIZE = 10
@@ -13,7 +14,6 @@ class Game < ActiveRecord::Base
   VESSEL     = Vessel.new
   CARRIER    = Carrier.new
   SHIP_ARRAY = [BOAT, VESSEL, CARRIER]
-  SHIP_COUNT = []
 
   def fire!(row, col)
     cell = get_cell(row, col)
@@ -31,16 +31,20 @@ class Game < ActiveRecord::Base
     game_board[row][col]
   end
 
+  def game_over?
+    self.shots <= 0 || no_playable_cells?
+  end
+
   private
 
   def update_ship_count
-    self.update(boats:    ship_count("boat"))
-    self.update(vessels:  ship_count("vessel"))
-    self.update(carriers: ship_count("carrier"))
+    self.update(boats:    ships_count("boat"))
+    self.update(vessels:  ships_count("vessel"))
+    self.update(carriers: ships_count("carrier"))
   end
 
-  def ship_count(type)
-    SHIP_COUNT.count do |arr|
+  def ships_count(type)
+    self.ship_count.count do |arr|
       arr.any? do |hash|
         cell = get_cell(hash[:row], hash[:column])
         cell[:type] == type && cell[:status] == "ship"
@@ -54,12 +58,9 @@ class Game < ActiveRecord::Base
     self.carriers ||= 2
     self.score    ||= 0
     self.shots    ||= NUM_SHOTS
+    self.ship_count = []
     self.game_board = init_game_board
     set_game_board
-  end
-
-  def game_over?
-    self.shots <= 0 || no_playable_cells?
   end
 
   def no_playable_cells?
@@ -94,7 +95,7 @@ class Game < ActiveRecord::Base
 
   def place_ship(array, ship_type)
     ship_array = array.sample
-    SHIP_COUNT << ship_array
+    self.ship_count << ship_array
     ship_array.each do |cell|
       cell[:status] = "ship"
       cell[:type]   = ship_type

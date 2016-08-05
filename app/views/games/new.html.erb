@@ -1,5 +1,16 @@
-<div class="container">
-  <h1>Battleship</h1>
-
-  <%= link_to "New Game", games_path, method: :post, class: 'start_link' 'btn btn-primary btn-lg' %>
+<div class="container new col-md-8 col-md-offset-2">
+  <div class="row">
+    <h1 class="banner">Battleship</h1>
+  </div>
+  <div class="jumbotron">
+    <h1>Instructions</h1>
+    <p>
+      <ul>
+        <li>Click on cells to fire</li>
+        <li>Game begins with 50 shots</li>
+        <li>Game ends when all shots fired, or all ships are sunk</li>
+      </ul>
+    </p>
+    <p><%= link_to "New Game", games_path, method: :post, class: 'start_link' 'btn btn-primary btn-lg' %></p>
+  </div>
 </div>

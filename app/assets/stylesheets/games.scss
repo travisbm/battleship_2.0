@@ -1,24 +1,48 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import url(https://fonts.googleapis.com/css?family=Black+Ops+One|Roboto+Condensed);
 
-h1 {
- text-align: center;
- font-size: 50px;
+body {
+  background: lightgray;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+.banner {
+  font-family: 'Black Ops One', sans-serif;
+  text-align: center;
+  font-size: 150px;
+  color: white;
+  background: darkred;
 }
 
-.start_link {
-  text-align: center;
-  a {
-    width: 200px;
-  }
+.jumbotron {
+  background: lightgray;
+}
+
+.jumbotron h1 {
+  margin-bottom: 20px;
+}
+
+.jumbotron ul {
+  margin-bottom: 40px;
+  list-style: none;
+}
+
+.shots {
+  float: left;
+  font-size: 35px;
+}
+
+.score {
+  float: right;
+  font-size: 35px;
+}
+
+.list-group-item {
+  font-size: 20px;
 }
 
 .col-md-1-2{
   @include make-md-column(1.2)
-}
-
-.container {
-  text-align: center;
 }
 
 #cell {

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805005435) do
+ActiveRecord::Schema.define(version: 20160805214918) do
 
   create_table "games", force: :cascade do |t|
     t.integer  "score"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160805005435) do
     t.integer  "boats"
     t.integer  "vessels"
     t.integer  "carriers"
+    t.text     "ship_count"
   end
 
 end
