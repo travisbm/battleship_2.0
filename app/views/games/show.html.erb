@@ -33,7 +33,7 @@
         <div class="row">
           <% row.each do |cell| %>
             <%= link_to fire_game_path(row: cell[:row], col: cell[:column]), method: :put, remote: true do %>
-              <div class="cell_<%= cell[:row] %>_<%= cell[:column] %>" id="cell"></div>
+              <div class="cell" data-row="<%= cell[:row] %>" data-column="<%= cell[:column] %>"></div>
             <% end %>
           <% end %>
         </div>

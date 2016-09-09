@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem 'jquery-turbolinks'
 gem 'responders', '~> 2.0'
 gem 'bootstrap-sass', '~> 3.3.6'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

@@ -5,7 +5,7 @@ $(".vessels").html("<%= @game.vessels %>");
 $(".carriers").html("<%= @game.carriers %>");
 
 <% if @cell[:status] == "hit" %>
-  $(".cell_<%= @row %>_<%= @col %>").css("background", "red")
+  $("[data-row='<%=@row%>'][data-column='<%=@col%>']").css("background", "red")
 <% elsif @cell[:status] == "miss" %>
-  $(".cell_<%= @row %>_<%= @col %>").css("background", "grey")
+  $("[data-row='<%=@row%>'][data-column='<%=@col%>']").css("background", "grey")
 <% end %>

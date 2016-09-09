@@ -16,6 +16,12 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    cell = @game.get_cell(params[:row].to_i, params[:col].to_i)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: cell }
+    end
   end
 
   def fire
